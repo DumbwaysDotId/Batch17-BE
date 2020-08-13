@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         as: "authors",
         through: {
           model: "AuhorBooks",
-          as: "Information",
+          as: "information",
         },
       });
     }
