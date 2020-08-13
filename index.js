@@ -1,11 +1,15 @@
+require("dotenv").config();
+
 //Init Express
 const express = require("express");
-
+const cors = require("cors");
 //init body-parser
 const bodyParser = require("body-parser");
 
 //gunakan express
 const app = express();
+
+app.use(cors());
 
 //Define Port
 const port = 5001;
