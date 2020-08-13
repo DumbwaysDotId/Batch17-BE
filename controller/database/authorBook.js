@@ -48,17 +48,30 @@ exports.readBook = async (req, res) => {
 
 exports.readAuthorBooks = async (req, res) => {
   try {
-    const authorBooks = await Author.findAll({
+    const authors = await Author.findAll({
       include: {
         model: Book,
         as: "books",
+        attributes: {
+          exclude: ["authorId", "createdAt", "updatedAt"],
+        },
+        through: {
+          model: AuhorBook,
+          as: "information",
+          attributes: {
+            exclude: ["id", "bookId", "authorId", "createdAt", "updatedAt"],
+          },
+        },
+      },
+      attributes: {
+        exclude: ["createdAt", "updatedAt"],
       },
     });
 
     res.status(200).send({
       message: "response success",
       data: {
-        authorBooks,
+        authors,
       },
     });
   } catch (err) {
@@ -68,17 +81,30 @@ exports.readAuthorBooks = async (req, res) => {
 
 exports.readBookAuthors = async (req, res) => {
   try {
-    const bookAuthors = await Book.findAll({
+    const books = await Book.findAll({
       include: {
         model: Author,
-        as: "author",
+        as: "authors",
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        },
+        through: {
+          model: AuhorBook,
+          as: "information",
+          attributes: {
+            exclude: ["id", "bookId", "authorId", "createdAt", "updatedAt"],
+          },
+        },
+      },
+      attributes: {
+        exclude: ["authorId", "createdAt", "updatedAt"],
       },
     });
 
     res.status(200).send({
       message: "response success",
       data: {
-        bookAuthors,
+        books,
       },
     });
   } catch (err) {
