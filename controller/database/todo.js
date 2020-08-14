@@ -68,3 +68,21 @@ exports.create = async (req, res) => {
     });
   }
 };
+
+exports.delete = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await todo.destroy({
+      where: {
+        id,
+      },
+    });
+
+    res.status(200).send({
+      message: `Delete Success!!! Your todo with ID: ${id} has been deleted`,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

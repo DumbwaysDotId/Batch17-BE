@@ -8,6 +8,7 @@ const {
   read,
   readOne,
   create: storeTodo,
+  delete: deleteTodo,
 } = require("../controller/database/todo");
 
 const { readFoo, readBar } = require("../controller/database/fooBar");
@@ -21,8 +22,9 @@ const {
 const { register, readUsers, login } = require("../controller/database/user");
 
 router.get("/todos", authenticated, read);
-router.get("/todo/:id", readOne);
 router.post("/todo", storeTodo);
+router.get("/todo/:id", readOne);
+router.delete("/todo/:id", deleteTodo);
 
 //demo authentication system
 router.get("/users", readUsers);
